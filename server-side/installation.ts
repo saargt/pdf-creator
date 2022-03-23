@@ -9,10 +9,26 @@ The error Message is importent! it will be written in the audit log and help the
 */
 
 import { Client, Request } from '@pepperi-addons/debug-server'
-import { Relation } from '@pepperi-addons/papi-sdk'
+import { PapiClient, Relation } from '@pepperi-addons/papi-sdk'
 
 export async function install(client: Client, request: Request): Promise<any> {
+    const papiClient = createPapiClient(client);
+
+    const templatesFolderPath = "/templates/";
+    await createPfsFolder(papiClient, client, templatesFolderPath);
+
+    const ordersFolderPath = "/orders/";
+    await createPfsFolder(papiClient, client, ordersFolderPath);
+
     return {success:true,resultObject:{}}
+}
+
+async function createPfsFolder(papiClient: PapiClient, client: Client, path: string) {
+    const body = {
+        Key: path,
+        MIME: "pepperi/folder"
+    };
+    await papiClient.post(`/addons/files/${client.AddonUUID}`, body);
 }
 
 export async function uninstall(client: Client, request: Request): Promise<any> {
@@ -25,4 +41,15 @@ export async function upgrade(client: Client, request: Request): Promise<any> {
 
 export async function downgrade(client: Client, request: Request): Promise<any> {
     return {success:true,resultObject:{}}
+}
+
+function createPapiClient(Client: Client)
+{
+	return new PapiClient({
+		token: Client.OAuthAccessToken,
+		baseURL: Client.BaseURL,
+		addonUUID: Client.AddonUUID,
+		addonSecretKey: Client.AddonSecretKey,
+		actionUUID: Client.ActionUUID,
+	});
 }
