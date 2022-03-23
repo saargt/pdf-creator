@@ -1,12 +1,20 @@
-import MyService from './my.service'
+import {PdfService} from './pdf.service'
 import { Client, Request } from '@pepperi-addons/debug-server'
 
-// add functions here
-// this function will run on the 'api/foo' endpoint
-// the real function is runnning on another typescript file
-export async function foo(client: Client, request: Request) {
-    const service = new MyService(client)
-    const res = await service.getAddons()
-    return res
-};
+export async function create_pdf(client: Client, request: Request) 
+{
+	console.log(`Request received: ${JSON.stringify(request)}`);
+	
+	switch (request.method) 
+	{
+	case "POST": {
+		const pdf = new PdfService(client, request);
+
+		return pdf.createPdf();
+	}
+	default: {
+		throw new Error(`Unsupported method: ${request.method}`);
+	}
+	}
+}
 

@@ -1,11 +1,11 @@
 import { PapiClient, InstalledAddon } from '@pepperi-addons/papi-sdk'
-import { Client } from '@pepperi-addons/debug-server';
+import { Client, Request } from '@pepperi-addons/debug-server';
 
-class MyService {
+export class PdfService {
 
     papiClient: PapiClient
 
-    constructor(private client: Client) {
+    constructor(private client: Client, private request: Request) {
         this.papiClient = new PapiClient({
             baseURL: client.BaseURL,
             token: client.OAuthAccessToken,
@@ -15,8 +15,9 @@ class MyService {
         });
     }
 
-    doSomething() {
+    createPdf() {
         console.log("doesn't really do anything....");
+        return {Result: "Great success!"};
     }
     
     // For page block template
@@ -28,5 +29,3 @@ class MyService {
         return this.papiClient.addons.installedAddons.find({});
     }
 }
-
-export default MyService;
