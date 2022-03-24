@@ -29,6 +29,11 @@
     },
     "dependencies": {
         "@pepperi-addons/debug-server": "*",
-        "@pepperi-addons/papi-sdk": "*"
+        "@pepperi-addons/papi-sdk": "*",
+        "encoding": "^0.1.13",
+        "html-pdf": "^3.0.1",
+        "mustache": "^4.2.0",
+        "node-fetch": "^2.6.0",
+        "uuid": "^8.3.2"
     }
 }
