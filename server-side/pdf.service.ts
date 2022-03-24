@@ -1,10 +1,11 @@
-import { PapiClient, InstalledAddon } from '@pepperi-addons/papi-sdk'
+import { PapiClient } from '@pepperi-addons/papi-sdk'
 import { Client, Request } from '@pepperi-addons/debug-server';
 import fetch from 'node-fetch';
 import pdf from 'html-pdf';
 import { v4 as uuid } from 'uuid';
 import config from '../addon.config.json';
 import mustache from 'mustache'
+import { DEFAULT_TEMPLATE_PATH } from './constants';
 
 // TODO: remove debug import:
 const fs = require('fs');
@@ -27,7 +28,8 @@ export class PdfService {
         });
 
         //transalte '~'s to '/'s in template_name
-        this.request.query.template_name = this.request.query.template_name.replace(new RegExp("~", 'g'), "/");
+
+        this.request.query.template_name = this.request.query.template_name ? this.request.query.template_name.replace(new RegExp("~", 'g'), "/") : DEFAULT_TEMPLATE_PATH;
 
     }
 
@@ -51,10 +53,14 @@ export class PdfService {
     async getTemplate() {
         const requestOptions = {
             method: 'GET',
+            json: false,
+
+            headers: {}
         }
 
-        // const templatePfsObj =  await this.papiClient.get(`/addons/files/${config.AddonUUID}/${this.request.query.template_name}`);
-        // this.templateBuffer = await ((await fetch(templatePfsObj.URL, requestOptions)).buffer());
+        const templatePfsObj =  await this.papiClient.get(`/addons/files/${config.AddonUUID}/${this.request.query.template_name}`);
+        const fetchRes = await fetch(templatePfsObj.URL, requestOptions);
+        this.templateBuffer = await fetchRes.text();
     }
 
     async getOrderData() {
@@ -63,13 +69,13 @@ export class PdfService {
 
     async createHtml() {
 
-        const template = fs.readFileSync('./sample.html', 'utf8');
-        this.html = mustache.render(template, this.orderData);
+        // const template = fs.readFileSync('./sample.html', 'utf8');
+
+        this.html = mustache.render(this.templateBuffer, this.orderData);
     }
 
     async createPdf() {
-        let res: any = {};
-        var options = {
+        const options = {
             "format": "A4",
             "orientation": "portrait",
             "border": {
@@ -80,10 +86,7 @@ export class PdfService {
             },
             "timeout": "120000"
         };
-        // this.pdfBuffer = pdf.create(this.html, options).toFile('./MyPdf.pdf', function(err, res) {
-        //     if (err) return console.log(err);
-        //     console.log(res);
-        //   });
+        
         const html = this.html;
 
         this.pdfBuffer = await new Promise(function (resolve, reject) {
@@ -104,7 +107,7 @@ export class PdfService {
 
     private async createPresignedUrl() {
         const pfsBody = {
-            Key: `/orders/${uuid()}`,
+            Key: `/orders/${uuid()}.pdf`,
             MIME: 'application/pdf',
             URI: "",
             Description: `OrderId = ${this.request.query.order_id}`
