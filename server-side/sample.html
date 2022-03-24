@@ -1,0 +1,354 @@
+<html>
+
+<body>
+    <div class="main-logo">
+        <img _ngcontent-c1="" alt="" class="logo"
+            src="https://settings.pepperi.com/Handlers/ResizeImage.ashx?imgPath=WrntyImages/Distributors/7816388.jpg" />
+    </div>
+    <div class="table-delimer">
+        <table>
+            <tr class='bg-gray'>
+                <th colspan="2"><strong>Order Confimation</strong></th>
+            </tr>
+        </table>
+    </div>
+    <div class="mg-t-sm">
+        <table class="general-info-table">
+            <tr>
+                <td>Transaction Type</td>
+                <td>{{Type}}</td>
+                <td>Status</td>
+                <td>{{StatusName}}</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="table-delimer mg-t-sm">
+        <table>
+            <tr class='bg-gray'>
+                <th colspan="2"><strong>General Information</strong></th>
+            </tr>
+        </table>
+    </div>
+    <div class='table-lines mg-t-md'>
+        <table>
+            <thead>
+                <tr class='bg-gray'>
+                    <th><strong>Item Code</strong></th>
+                    <th class='table-col-lg'><strong>Item Name</strong></th>
+                    <th><strong>Quantity<br> Ordered</strong></th>
+                    <th><strong>Total Price</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#TransactionLines.Data}}
+                <tr>
+                <td>{{ItemExternalID}}</td>
+                <td class='table-col-lg'>{{ItemName}}</td>
+                <td>{{UnitsQuantity}} text</td>
+                <td>{{TotalUnitsPriceAfterDiscount}}$</td>
+                </tr>
+                {{/TransactionLines.Data}}
+            </tbody>
+        </table>
+    </div>
+    <div class="mg-t-sm">
+        <table class="general-info-table">
+            <tr>
+                <td>Sub-Total</td>
+                <td>{{SubTotalAfterItemsDiscount}}$</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Order Total</td>
+                <td>{{GrandTotal}}$</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<style>
+    a,
+    abbr,
+    acronym,
+    address,
+    applet,
+    article,
+    aside,
+    audio,
+    b,
+    big,
+    blockquote,
+    body,
+    canvas,
+    caption,
+    center,
+    cite,
+    code,
+    dd,
+    del,
+    details,
+    dfn,
+    div,
+    dl,
+    dt,
+    em,
+    embed,
+    fieldset,
+    figcaption,
+    figure,
+    footer,
+    form,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    header,
+    hgroup,
+    html,
+    i,
+    iframe,
+    img,
+    ins,
+    kbd,
+    label,
+    legend,
+    li,
+    mark,
+    menu,
+    nav,
+    object,
+    ol,
+    output,
+    p,
+    pre,
+    q,
+    ruby,
+    s,
+    samp,
+    section,
+    small,
+    span,
+    strike,
+    strong,
+    sub,
+    summary,
+    sup,
+    table,
+    tbody,
+    td,
+    tfoot,
+    th,
+    thead,
+    time,
+    tr,
+    tt,
+    u,
+    ul,
+    var,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        -webkit-print-color-adjust: exact;
+    }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+        display: block;
+    }
+
+    body {
+        line-height: 1;
+        font-family: "Inter", "Inter var", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        padding: 0 2rem;
+    }
+
+    ol,
+    ul {
+        list-style: none;
+    }
+
+    blockquote,
+    q {
+        quotes: none;
+    }
+
+    blockquote:after,
+    blockquote:before,
+    q:after,
+    q:before {
+        content: "";
+        content: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    th {
+        padding-top: 50px;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    tr:last-child {
+        padding-bottom: 200px;
+    }
+
+    .pagebreak {
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+
+    .bg-gray {
+        background-color: #f4f4f4;
+    }
+
+    .main-logo {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 10rem;
+        margin: 2rem 0 1rem 0;
+    }
+
+    .main-logo img {
+        height: 100%;
+    }
+
+    .table-delimer {
+        margin-top: 2rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-pack: left;
+        -ms-flex-pack: left;
+        justify-content: left;
+        -webkit-box-align: left;
+        -ms-flex-align: left;
+        align-items: left;
+    }
+
+    .table-delimer table {
+        width: 100%;
+        text-align: left;
+    }
+
+    .table-delimer table tbody tr th {
+        padding: .5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .table-delimer table tbody tr th.title-strong {
+        font-weight: 700;
+        font-size: 1.4rem;
+    }
+
+    .mg-t-sm {
+        margin-top: .5rem;
+    }
+
+    .mg-t-md {
+        margin-top: 1rem;
+    }
+
+    .general-info-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 .5rem;
+    }
+
+    .general-info-table tr td {
+        width: 25%;
+    }
+
+    .table-lines table {
+        width: 100%;
+    }
+
+    .table-lines table thead {
+        display: table-header-group;
+        margin-top: 2rem;
+    }
+
+    .table-lines table thead tr th {
+        width: 10%;
+        padding: .5rem .5rem;
+        font-size: .9rem;
+        align-items: center;
+        vertical-align: middle;
+        border: 1px solid darkgray;
+    }
+
+    .table-lines table thead tr th.table-col-lg {
+        width: 30%;
+    }
+
+    .table-lines table tbody tr td {
+        width: 10%;
+        padding: .5rem .5rem;
+        font-size: .9rem;
+        align-items: center;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid darkgray;
+    }
+
+    .table-lines table tbody tr td.table-col-lg {
+        width: 30%;
+    }
+
+    .table-lines table tbody tr td.bdr-rmv-l {
+        border-left: none;
+    }
+
+    .table-lines table tbody tr td.bdr-rmv-r {
+        border-right: none;
+    }
+
+    .table-lines table tbody tr td.bdr-rmv-lr {
+        border-left: none;
+        border-right: none;
+    }
+
+    .footer-delimer {
+        margin-top: 2rem;
+        border-top: 2px solid darkgray;
+    }
+</style>
+
+</html>

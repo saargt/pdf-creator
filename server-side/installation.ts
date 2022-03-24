@@ -15,10 +15,10 @@ export async function install(client: Client, request: Request): Promise<any> {
     const papiClient = createPapiClient(client);
 
     const templatesFolderPath = "/templates/";
-    await createPfsFolder(papiClient, client, templatesFolderPath);
+    const templatesRes = await createPfsFolder(papiClient, client, templatesFolderPath);
 
     const ordersFolderPath = "/orders/";
-    await createPfsFolder(papiClient, client, ordersFolderPath);
+    const ordersRes = await createPfsFolder(papiClient, client, ordersFolderPath);
 
     return {success:true,resultObject:{}}
 }
